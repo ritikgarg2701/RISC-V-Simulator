@@ -228,7 +228,7 @@ class Ui_Simulator(object):
         self.IR.setFont(font)
         self.IR.setObjectName("IR")
         self.groupBox_4 = QtWidgets.QGroupBox(Simulator)
-        self.groupBox_4.setGeometry(QtCore.QRect(40, 370, 391, 351))
+        self.groupBox_4.setGeometry(QtCore.QRect(20, 280, 411, 300))
         font = QtGui.QFont()
         font.setFamily("Comic Sans MS")
         font.setPointSize(11)
@@ -241,20 +241,20 @@ class Ui_Simulator(object):
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
         self.groupBox_4.setPalette(palette)
         self.label = QtWidgets.QLabel(self.groupBox_4)
-        self.label.setGeometry(QtCore.QRect(100, 70, 65, 16))
+        self.label.setGeometry(QtCore.QRect(120, 55, 71, 20))
         self.label.setObjectName("label")
         font = QtGui.QFont()
         font.setFamily("Comic Sans MS")
         font.setPointSize(12)
         self.label.setFont(font)
         self.fetch = QtWidgets.QLineEdit(self.groupBox_4)
-        self.fetch.setGeometry(QtCore.QRect(180, 60, 190, 31))
+        self.fetch.setGeometry(QtCore.QRect(195, 51, 185, 31))
         self.fetch.setObjectName("fetch")
         self.decode = QtWidgets.QLineEdit(self.groupBox_4)
-        self.decode.setGeometry(QtCore.QRect(180, 110, 190, 31))
+        self.decode.setGeometry(QtCore.QRect(195, 100, 185, 31))
         self.decode.setObjectName("decode")
         self.label_2 = QtWidgets.QLabel(self.groupBox_4)
-        self.label_2.setGeometry(QtCore.QRect(80, 120, 91, 20))
+        self.label_2.setGeometry(QtCore.QRect(104, 104, 81, 20))
         font = QtGui.QFont()
         font.setFamily("Comic Sans MS")
         font.setPointSize(12)
@@ -263,23 +263,41 @@ class Ui_Simulator(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.execute = QtWidgets.QLineEdit(self.groupBox_4)
-        self.execute.setGeometry(QtCore.QRect(180, 160, 190, 31))
+        self.execute.setGeometry(QtCore.QRect(195, 149, 185, 31))
         self.execute.setObjectName("execute")
         self.label_3 = QtWidgets.QLabel(self.groupBox_4)
-        self.label_3.setGeometry(QtCore.QRect(80, 170, 81, 20))
+        self.label_3.setGeometry(QtCore.QRect(105, 153, 91, 20))
         self.label_3.setObjectName("label_3")
         self.memoryAccess = QtWidgets.QLineEdit(self.groupBox_4)
-        self.memoryAccess.setGeometry(QtCore.QRect(180, 210, 190, 31))
+        self.memoryAccess.setGeometry(QtCore.QRect(195, 198, 185, 31))
         self.memoryAccess.setObjectName("memoryAccess")
         self.label_4 = QtWidgets.QLabel(self.groupBox_4)
-        self.label_4.setGeometry(QtCore.QRect(20, 220, 141, 20))
+        self.label_4.setGeometry(QtCore.QRect(41, 202, 161, 20))
         self.label_4.setObjectName("label_4")
         self.registerUpdate = QtWidgets.QLineEdit(self.groupBox_4)
-        self.registerUpdate.setGeometry(QtCore.QRect(180, 260, 190, 31))
+        self.registerUpdate.setGeometry(QtCore.QRect(195, 247, 185, 31))
         self.registerUpdate.setObjectName("registerUpdate")
         self.label_5 = QtWidgets.QLabel(self.groupBox_4)
-        self.label_5.setGeometry(QtCore.QRect(10, 260, 151, 30))
+        self.label_5.setGeometry(QtCore.QRect(34, 251, 171, 31))
         self.label_5.setObjectName("label_5")
+
+        self.groupBox_5 = QtWidgets.QGroupBox(Simulator)
+        self.groupBox_5.setGeometry(QtCore.QRect(19, 598, 411, 212))
+        font = QtGui.QFont()
+        font.setFamily("Comic Sans MS")
+        font.setPointSize(11)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        self.groupBox_5.setPalette(palette)
+        self.groupBox_5.setFont(font)
+        self.groupBox_5.setAlignment(QtCore.Qt.AlignCenter)
+        self.groupBox_5.setObjectName("groupBox_5")
+        self.display = QtWidgets.QTextEdit(self.groupBox_5)
+        self.display.setGeometry(QtCore.QRect(10, 30, 391, 172))
+        self.display.setObjectName("display")
+        self.display.setReadOnly(True)
 
         self.retranslateUi(Simulator)
         QtCore.QMetaObject.connectSlotsByName(Simulator)
@@ -366,6 +384,7 @@ class Ui_Simulator(object):
         self.PC.setText(_translate("Simulator", "PC : "))
         self.IR.setText(_translate("Simulator", "IR :"))
         self.groupBox_4.setTitle(_translate("Simulator", "Single Cycle Execution"))
+        self.groupBox_5.setTitle(_translate("Simulator", "Display"))
         self.label.setText(_translate("Simulator", "Fetch :"))
         self.label_2.setText(_translate("Simulator", "Decode :"))
         self.label_3.setText(_translate("Simulator", "Execute :"))
@@ -416,7 +435,8 @@ class Ui_Simulator(object):
     def showDataSegment(self):
         i=0
         _translate = QtCore.QCoreApplication.translate
-        for key,val in main.dataSegment.items():
+        for key in sorted(main.dataSegment):
+            val = main.dataSegment[key]
             item = QtWidgets.QListWidgetItem()
             self.dataSegment.addItem(item)
             item.setText(_translate("Simulator", "0x"+str(hex(int(key, 2)))[2:].upper()+" "+"0x"+str(hex(int(val, 2)))[2:].upper().zfill(2)))
@@ -465,6 +485,9 @@ class Ui_Simulator(object):
         self.memoryAccess.setText("")
         self.registerUpdate.setText("")
 
+    def showDisplay(self):
+        self.display.setText(main.display)
+
 
 def gui():
     global ui
@@ -479,18 +502,31 @@ def gui():
 
 
 def man():
-    print("::::::::::< RISC V SIMULATOR >:::::::::::::\n")
-    print("Select the configuration in which you wish to run the simulator")
-    print("Enter 1 to run gui")
-    print("Enter any other key to run on terminal")
-    flag = int(input("Enter your choice : "))
-    print()
-    main.loadDataSegment()
-    main.loadInstructionSegment()
-    if (flag == 1):
-        gui()
+    if (len(sys.argv) > 2):
+        print("Invalid input file, Re-enter File name")
+        exit(0)
+    elif(not(sys.argv[1][-1]=='c' and sys.argv[1][-2]=='m' and sys.argv[1][-3]=='.')):
+        print("Invalid file format, Re-enter .mc file")
+        exit(0)
     else:
-        main.terminal()
+        try:
+            f = open(sys.argv[1],'r')
+        except OSError:
+            print("Invalid input file, Re-enter File name")
+            exit(0)
+        else:
+            print("::::::::::< RISC V SIMULATOR >:::::::::::::\n")
+            print("Select the configuration in which you wish to run the simulator")
+            print("Enter 1 to run gui")
+            print("Enter any other key to run on terminal")
+            flag = int(input("Enter your choice : "))
+            print()
+            main.loadDataSegment()
+            main.loadInstructionSegment()
+            if (flag == 1):
+                gui()
+            else:
+                main.terminal()
 
 
 def step():
@@ -518,6 +554,8 @@ def step():
     ui.updateRegisters()
     ui.eraseData()
     ui.showDataSegment()
+    ui.showDisplay()
+    main.display=""
 
 
 def run():
@@ -539,12 +577,15 @@ def run():
     ui.changeRegisterColor()
     ui.updateRegisters()
     main.fileUpdate()
+    ui.eraseData()
     ui.showDataSegment()
     ui.changeColor()
     ui.disableReset()
     ui.updateIR()
     ui.updatePC()
     ui.isCompleted = True
+    main.display = "EXECUTED SUCCESSFULLY !!!"
+    ui.showDisplay()
 
 def reset():
     ui.resetID=1

@@ -21,7 +21,7 @@ Table of contents
 
 =================================================================
 1. Instructions to the user on how to use it
--> python GUI.py (to run the program)
+-> python GUI.py <input_file_name>.mc (to run the program)
 -> Consequently the instructions to further proceed in the program are displayed
 -> Two options is given- either to run on the GUI or run on the terminal
 -> Enter-"1" to run the GUI or "any other key" to run on the terminal
@@ -50,7 +50,7 @@ one instruction at a time.
 =================================================================
 4. How to run
 
--> python GUI.py (to run the program)
+-> python GUI.py <input_file_name>.mc (to run the program)
 -> Consequently the instructions to further proceed in the program are displayed 
 
 =================================================================
